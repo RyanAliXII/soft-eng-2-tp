@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+ @await Html.PartialAsync("_Head")
+<body>
+     @await Html.PartialAsync("_Navbar")
+ <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+  @await Html.PartialAsync("_Sidebar")
+  <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900 min-h-screen">
+    <main>
+      @RenderBody()
+    </main>
+    @await RenderSectionAsync("Modals", required:false)
+  </div>
+
+</div>
+</body>
+@await Html.PartialAsync("_ToastTemplates")
+<script src="~/js/toast.js"></script>
+<script src="~/lib/flowbite/flowbite.min.js"></script>
+<script src="~/js/dark-mode.js"> </script>
+<script src="~/js/sidebar.js"> </script>
+<script src="https://kit.fontawesome.com/e3d540c71b.js" crossorigin="anonymous"></script>
+ @await RenderSectionAsync("Scripts", required: false)
+</html>
