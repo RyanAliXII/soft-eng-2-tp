@@ -1,3 +1,4 @@
+using EventManagementApp.Areas.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventManagementApp.Areas.Admin.Controllers
@@ -7,6 +8,11 @@ namespace EventManagementApp.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(LoginViewModel creds){
+        
             return View();
         }
 
