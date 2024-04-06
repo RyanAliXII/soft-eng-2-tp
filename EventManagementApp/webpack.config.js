@@ -1,11 +1,10 @@
 const path = require("path");
 const Webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const entries = require("./webpack-entry.json");
 module.exports = {
-  entry: {
-    "test.js": "./wwwroot/src/ts/test.ts",
-  },
   mode: "development",
+  entry: entries,
   output: {
     filename: "[name]",
     path: path.resolve(__dirname, "wwwroot/dist/js"),
@@ -19,7 +18,8 @@ module.exports = {
   plugins: [
     new Webpack.DefinePlugin({
       __VUE_OPTIONS_API__: true,
-      __VUE_PROD_DEVTOOLS__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
     }),
     new CopyWebpackPlugin({
       patterns: [
