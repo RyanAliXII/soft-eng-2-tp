@@ -5,13 +5,13 @@ namespace EventManagementApp.Areas.Admin.Controllers
 {   
     [Area("Admin")]
     public class LoginController: Controller
-    {
+    {   
         public ActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Index(LoginViewModel creds){
+        public async Task<IActionResult> Index(LoginViewModel credential){
         
             return View();
         }
