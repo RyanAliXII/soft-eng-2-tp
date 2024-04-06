@@ -1,7 +1,7 @@
 using EventManagementApp.Areas.Admin.Models;
 using EventManagementApp.Data;
 using EventManagementApp.Repositories;
-
+using Microsoft.EntityFrameworkCore;
 
 class UserRepository: IUserRepository {
     private readonly DefaultDbContext _dbContext;
@@ -25,11 +25,15 @@ class UserRepository: IUserRepository {
     public void Delete(User user){
         
     }
- 
+    public async Task<User?> GetUserByEmail(string email){
+       email = email.ToLower();
+       return await _dbContext.User.Include(u=> u.LoginCredential).
+       Where(u=> u.LoginCredential.Email.ToLower().Equals(email)).
+       FirstOrDefaultAsync();
+    }
   
 }
 
 public interface IUserRepository: IRepository<User>{
-
-
+    public  Task<User?> GetUserByEmail(string email);
 }
