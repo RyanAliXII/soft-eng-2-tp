@@ -9,8 +9,8 @@ public class User {
     public string Surname { get; set; } = string.Empty;
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public DateTime CreatedAt {get; set;}
-  
-    // public DateTime DeletedAt  {get; set;}
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public DateTime? DeletedAt  {get; set;}
     public Guid LoginCredentialId { get; set; } = Guid.Empty;
     [ForeignKey("LoginCredentialId")]
     public LoginCredential LoginCredential {get; set; } = new LoginCredential();

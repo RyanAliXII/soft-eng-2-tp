@@ -25,7 +25,7 @@ MinioServiceBootstrap.CreateDefaultBucketAndPolicy(app.Services.GetRequiredServi
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    RootUserSeeder.Initialize(services, app.Configuration);
+    RootUserSeed.Initialize(services, app.Configuration);
 }
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

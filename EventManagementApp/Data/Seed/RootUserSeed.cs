@@ -1,10 +1,9 @@
-using System.Runtime.CompilerServices;
 using EventManagementApp.Areas.Admin.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventManagementApp.Data.Seed;
 
-public static class RootUserSeeder
+public static class RootUserSeed
 {
      public async static void Initialize(IServiceProvider serviceProvider, IConfiguration config)
     {
@@ -38,7 +37,7 @@ public static class RootUserSeeder
             Surname = surname,
             LoginCredential = new LoginCredential(){
                 Email = email,
-                Password =  password,
+                Password =  BCrypt.Net.BCrypt.EnhancedHashPassword(password, 15),
                 IsRoot = true,
             }
         };
