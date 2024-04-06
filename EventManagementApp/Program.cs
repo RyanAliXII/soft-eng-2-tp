@@ -3,6 +3,7 @@ using EventManagementApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Minio;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using EventManagementApp.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 //Initialize minio;
 builder.Services.AddMinio(client  => MinioServiceBootstrap.BuildDefaultMinioClient(client, builder.Configuration));
@@ -17,6 +18,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.LoginPath = "/Admin/Login";
     options.Cookie.Name = "admin_sid";
 });
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
 MinioServiceBootstrap.CreateDefaultBucketAndPolicy(app.Services.GetRequiredService<IMinioClient>(), app.Configuration);
 // Configure the HTTP request pipeline.
