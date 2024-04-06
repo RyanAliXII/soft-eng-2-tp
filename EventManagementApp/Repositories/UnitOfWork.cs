@@ -9,5 +9,6 @@ public class UnitOfWork(DefaultDbContext dbContext) : IUnitOfWork {
     }
 }
 public interface IUnitOfWork {
+    public IUserRepository UserRepository {get;}
     public void Save();
 }

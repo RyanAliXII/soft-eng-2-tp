@@ -7,8 +7,7 @@ class UserRepository: IUserRepository {
     private readonly DefaultDbContext _dbContext;
     public UserRepository(DefaultDbContext dbContext){
         _dbContext = dbContext;
-    }
- 
+    } 
     public void Add(User driver){
         
         _dbContext.SaveChanges();

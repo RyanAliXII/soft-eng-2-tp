@@ -15,7 +15,7 @@ namespace EventManagementApp.Migrations
                 Id = table.Column<Guid>(type: "uniqueidentifier", defaultValueSql: "NEWID()"),
                 Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                IsRoot = table.Column<bool>(type: "bit", defaultValue: false),
+                IsRoot = table.Column<bool>(type: "bit", defaultValueSql: "0"),
                 CreatedAt = table.Column<DateTime>(type: "datetime", defaultValueSql: "GETDATE()")
             },
             constraints: table =>{
