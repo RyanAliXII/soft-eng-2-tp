@@ -12,7 +12,6 @@ namespace EventManagementApp.Areas.Admin.Controllers
     {   
         private readonly ILogger<LoginController> _logger;
         private readonly IUnitOfWork _unitOfWork;
-
         public LoginController(ILogger<LoginController> logger, IUnitOfWork unitOfWork){
             _logger = logger;
             _unitOfWork = unitOfWork;
