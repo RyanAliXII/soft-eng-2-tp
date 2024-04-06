@@ -2,6 +2,7 @@ using EventManagementApp.Services;
 using EventManagementApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Minio;
+using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 //Initialize minio;
 builder.Services.AddMinio(client  => MinioServiceBootstrap.BuildDefaultMinioClient(client, builder.Configuration));
@@ -9,7 +10,13 @@ builder.Services.AddMinio(client  => MinioServiceBootstrap.BuildDefaultMinioClie
 builder.Services.AddControllersWithViews();
 builder.Configuration.AddJsonFile("appsettings.json").AddEnvironmentVariables();
 builder.Services.AddDbContext<DefaultDbContext>(options=> options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultDb")));
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=>{
+    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+    options.SlidingExpiration = true;
+    options.AccessDeniedPath = "/Forbidden";
+    options.LoginPath = "/Admin/Login";
+    options.Cookie.Name = "admin_sid";
+});
 var app = builder.Build();
 MinioServiceBootstrap.CreateDefaultBucketAndPolicy(app.Services.GetRequiredService<IMinioClient>(), app.Configuration);
 // Configure the HTTP request pipeline.
@@ -24,7 +31,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapAreaControllerRoute(
