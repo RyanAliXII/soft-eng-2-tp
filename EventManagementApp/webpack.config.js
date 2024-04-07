@@ -6,8 +6,14 @@ module.exports = {
   mode: "development",
   entry: entries,
   output: {
-    filename: "[name]",
+    filename: "[name].js",
     path: path.resolve(__dirname, "wwwroot/dist/js"),
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      name: "shared",
+    },
   },
   resolve: {
     alias: {
