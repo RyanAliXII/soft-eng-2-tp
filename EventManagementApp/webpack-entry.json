@@ -1,5 +1,3 @@
 {
-  "event": "./wwwroot/src/ts/event.ts",
-  "test1": "./wwwroot/src/ts/test1.js",
-  "test2": "./wwwroot/src/ts/test2.js"
+  "event/event-page": "./wwwroot/src/ts/event.ts"
 }
