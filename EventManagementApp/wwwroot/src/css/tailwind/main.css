@@ -39,7 +39,7 @@ td {
   @apply block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 p-2;
 }
 .divider-b {
-  @apply h-px mb-8 bg-gray-200 border-0 dark:bg-gray-700;
+  @apply h-[0.5px]  bg-gray-300 border-0 dark:bg-gray-700;
 }
 .h1 {
   @apply text-5xl font-extrabold dark:text-white;
