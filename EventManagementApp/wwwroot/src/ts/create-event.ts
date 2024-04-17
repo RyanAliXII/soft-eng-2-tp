@@ -26,12 +26,27 @@ createApp({
         console.error(e);
       }
     };
+    const addActivity = () => {
+      form.value.activities.push({
+        endTime: new Date(),
+        startTime: new Date(),
+        name: "",
+      });
+    };
+    const removeActivity = (rowIndex: number) => {
+      console.log(rowIndex);
+      form.value.activities = form.value.activities.filter(
+        (a, idx) => idx != rowIndex
+      );
+    };
 
     return {
       form,
       errors,
       toISO8601DateString,
       handleDateInput,
+      addActivity,
+      removeActivity,
     };
   },
 }).mount("#createEventPage");

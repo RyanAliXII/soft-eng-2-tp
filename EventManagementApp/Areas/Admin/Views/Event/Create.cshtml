@@ -1,4 +1,4 @@
-<section class="p-4 mt-5" id="createEventPage">
+<section class="px-4 py-5 bg-white dark:bg-gray-800" id="createEventPage">
   <span class="text-2xl font-semibold dark:text-white">Create event</span>
   <hr class="divider-b mb-3 mt-1" />
   <form>
@@ -17,20 +17,50 @@
       />
     </div>
     <div>
-      <button type="button" class="btn-primary-outline">
+      <button
+        type="button"
+        class="btn-primary-outline mb-3"
+        v-on:click="addActivity"
+      >
         <i class="fas fa-plus"></i>
         Add activity
       </button>
     </div>
-    <div class="table-container mb-3">
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Start time</th>
-          <th>End time</th>
-          <th></th>
-        </tr>
-        <tbody></tbody>
+    <div class="table-container overflow-y-hidden mb-3">
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <th class="th">Name</th>
+            <th class="th">Start time</th>
+            <th class="th">End time</th>
+            <th class="th"></th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr class="tbody-row" v-for="(activity, index) of form.activities">
+            <td class="td">
+              <label>Name</label>
+              <input type="text" class="form-input" />
+            </td>
+            <td class="td">
+              <label>Start time</label>
+              <input type="text" class="form-input" />
+            </td>
+            <td class="td">
+              <label>End time</label>
+              <input type="text" class="form-input" />
+            </td>
+            <td class="td">
+              <button
+                type="button"
+                class="btn-danger mt-3"
+                v-on:click="removeActivity(index)"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <div>
