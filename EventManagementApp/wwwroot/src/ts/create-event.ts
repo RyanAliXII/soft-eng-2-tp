@@ -1,12 +1,12 @@
 import { createApp } from "vue";
 import { useForm } from "./composables/useForm";
-import { Event } from "./types/event";
+import { NewEvent } from "./types/event";
 import { object, string } from "zod";
-import { isValidDatetime, toISO8601DateString } from "./utils/datetime";
-type CreateEventForm = Omit<Event, "id">;
+import { toISO8601DateString } from "./utils/datetime";
+
 createApp({
   setup() {
-    const { form, errors } = useForm<CreateEventForm>({
+    const { form, errors } = useForm<NewEvent>({
       initialValue: {
         name: "",
         activities: [],
