@@ -1,14 +1,33 @@
+import { format } from "date-fns";
+
 export const toISO8601DateString = (date: Date) => {
   if (!isValidDatetime(date)) return "";
-  return new Date(date).toLocaleString("sv-SE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
+  try {
+    return format(date, "yyyy-MM-dd");
+  } catch (error) {
+    return "";
+  }
+};
+export const get24HRTime = (date: Date) => {
+  if (!isValidDatetime(date)) return "";
+  try {
+    return format(date, "HH:mm:ss");
+  } catch (error) {
+    return "";
+  }
 };
 export const isValidDatetime = (date: Date) => {
   if (date instanceof Date && !isNaN(date.valueOf())) {
     return true;
   }
   return false;
+};
+export const to24HRTimeString = (date: Date) => {
+  if (!isValidDatetime(date)) return "";
+  return date.toLocaleString(undefined, {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 };

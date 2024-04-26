@@ -1,20 +1,40 @@
-<section class="px-4 py-5 bg-white dark:bg-gray-800" id="createEventPage">
-  <span class="text-2xl font-semibold dark:text-white">Create event</span>
+<section
+  class="px-4 py-5 bg-white dark:bg-gray-800"
+  id="createEventPage"
+  v-cloak
+>
+  <span class="text-2xl font-semibold dark:text-white">Create Event</span>
   <hr class="divider-b mb-3 mt-1" />
-  <form>
+  <form v-on:submit.prevent="submit">
+    @Html.AntiForgeryToken()
     <div class="mb-2">
       <label class="form-label">Name</label>
-      <input type="text" v-model="form.name" name="date" class="form-input" />
+      <input
+        type="text"
+        name="name"
+        v-model="form.name"
+        :class="errors?.name?.[0] ? 'form-input-error' : 'form-input'"
+      />
+      <span
+        class="form-error"
+        v-show="errors?.name"
+        >{{ errors?.name?.[0] }}</span
+      >
     </div>
     <div class="mb-4">
       <label class="form-label">Date</label>
       <input
         type="date"
-        v-on:input="handleDateInput"
         name="date"
         :value="toISO8601DateString(form.date)"
-        class="form-input"
+        v-on:input="handleDateInput"
+        :class="errors?.date?.[0] ? 'form-input-error' : 'form-input'"
       />
+      <span
+        class="form-error"
+        v-show="errors?.date"
+        >{{ errors?.date?.[0] }}</span
+      >
     </div>
     <div>
       <button
@@ -40,15 +60,46 @@
           <tr class="tbody-row" v-for="(activity, index) of form.activities">
             <td class="td">
               <label>Name</label>
-              <input type="text" class="form-input" />
+              <input
+                v-model="form.activities[index].name"
+                type="text"
+                :class="errors?.activities?.[index]?.name?.[0] ? 'form-input-error' : 'form-input' "
+              />
+              <span
+                class="form-error"
+                v-show="errors?.activities?.[index]?.name?.[0]"
+                >{{errors?.activities?.[index]?.name?.[0] }}</span
+              >
             </td>
             <td class="td">
               <label>Start time</label>
-              <input type="text" class="form-input" />
+              <date-picker
+                v-model="form.activities[index].startTime"
+                time-picker
+                :teleport="true"
+                :is-24="false"
+                minutes-increment="15"
+              ></date-picker>
+              <span
+                class="form-error"
+                v-show="errors?.activities?.[index]?.startTime?.[0]"
+                >{{errors?.activities?.[index]?.startTime?.[0] }}</span
+              >
             </td>
             <td class="td">
               <label>End time</label>
-              <input type="text" class="form-input" />
+              <date-picker
+                v-model="form.activities[index].endTime"
+                time-picker
+                :teleport="true"
+                :is-24="false"
+                minutes-increment="15"
+              ></date-picker>
+              <span
+                class="form-error"
+                v-show="errors?.activities?.[index]?.endTime?.[0]"
+                >{{errors?.activities?.[index]?.endTime?.[0] }}</span
+              >
             </td>
             <td class="td">
               <button
@@ -56,7 +107,10 @@
                 class="btn-danger mt-3"
                 v-on:click="removeActivity(index)"
               >
-                Remove
+                <div flex gap-2 items-center>
+                  <i class="fas fa-times"></i>
+                  Remove
+                </div>
               </button>
             </td>
           </tr>
@@ -64,7 +118,12 @@
       </table>
     </div>
     <div>
-      <button type="submit" class="btn-primary">Save</button>
+      <button type="submit" class="btn-primary">
+        <div flex gap-2 items-center>
+          <i class="fas fa-save"></i>
+          Save
+        </div>
+      </button>
     </div>
   </form>
 </section>
