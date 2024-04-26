@@ -35,11 +35,12 @@ createApp({
       date: date(),
       activities: activitiesSchema,
     });
-    const form = ref<InferType<typeof schema>>({
+    const INITIAL_FORM: InferType<typeof schema> = {
       name: "",
       date: new Date(),
       activities: [],
-    });
+    };
+    const form = ref({ ...INITIAL_FORM });
     const errors = ref({});
 
     const handleDateInput = (event: InputEvent) => {
@@ -106,9 +107,9 @@ createApp({
       return newActivities;
     };
     const submit = async () => {
+      errors.value = {};
       const f = schema.cast(form.value);
       const activities = parseActivitiesTime(f.activities);
-
       const response = await fetch("/Admin/Event/Create", {
         method: "POST",
         body: JSON.stringify({
@@ -126,7 +127,10 @@ createApp({
       if (response.status === StatusCodes.BAD_REQUEST) {
         const data = await response.json();
         errors.value = toStructuredErrors(data?.errors) ?? {};
-        console.log(errors.value);
+        return;
+      }
+      if (response.status === StatusCodes.OK) {
+        alert("New event has been added.");
       }
     };
     return {

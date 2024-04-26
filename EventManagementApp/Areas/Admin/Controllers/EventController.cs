@@ -1,24 +1,30 @@
 using EventManagementApp.Areas.Admin.ViewModels;
+using EventManagementApp.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace EventManagementApp.Areas.Admin.Controllers;
 
 [Authorize]
 [Area("Admin")]
-public class EventController(ILogger<EventController> logger) : Controller
+public class EventController(IUnitOfWork uof, ILogger<EventController> logger) : Controller
 {
     private ILogger<EventController> _logger = logger;
+    private IUnitOfWork _uof = uof;
     public IActionResult Create()
     {
         return View();
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create([FromBody] NewEventViewModel newEvent)
+    public async Task<IActionResult> Create([FromBody] NewEventViewModel newEvent)
     {
         try
         {
-
+            var dateExists = await _uof.EventRepository.IsDateExists(newEvent.Date);
+            if (dateExists)
+            {
+                ModelState.AddModelError("date", "Event with this date already exists.");
+            }
             ValidateOverlappingTime(newEvent.Activities);
             if (!ModelState.IsValid)
             {
@@ -31,15 +37,18 @@ public class EventController(ILogger<EventController> logger) : Controller
                  )
                 });
             }
-
+            var e = await _uof.EventRepository.Add(new Event(newEvent));
+            await _uof.Save();
             return Json(new
             {
-                Id = ""
+                e
             });
+
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.Message);
+            _logger.LogError(ex.StackTrace);
             Response.StatusCode = StatusCodes.Status500InternalServerError;
             return Json(new
             {
