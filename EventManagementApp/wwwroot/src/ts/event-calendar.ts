@@ -1,4 +1,4 @@
-import { computed, createApp, onMounted, ref } from "vue";
+import { computed, createApp, ref } from "vue";
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -96,6 +96,10 @@ createApp({
       plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
       initialView: "dayGridMonth",
       events: fetchEvents,
+      selectable: true,
+      dateClick: (info) => {
+        window.location.href = `/Admin/Event/Create?date=${info.dateStr}`;
+      },
       datesSet: (info) => {
         if (info.view.type != "timeGridDay") {
           eventId.value = "";

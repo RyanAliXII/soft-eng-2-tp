@@ -1,3 +1,4 @@
+using EventManagementApp.Areas.Admin.Models;
 using EventManagementApp.Areas.Admin.ViewModels;
 using EventManagementApp.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -79,6 +80,74 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
         }
 
     }
+    public async Task<IActionResult> Edit(Guid ID)
+    {
+        if (ID == Guid.Empty)
+        {
+            return NotFound();
+        }
+        var e = await _uof.EventRepository.GetById(ID);
+        if (e.Id == Guid.Empty)
+        {
+            return NotFound();
+        }
+        return View(e);
+    }
+    [HttpPut]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit([FromBody] EditEventViewModel editEventVM, Guid ID)
+    {
+        try
+        {
+            if (ID == Guid.Empty || ID != editEventVM.Id)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return Json(new
+                {
+                    message = "Invalid event ID param",
+                    status = StatusCodes.Status400BadRequest
+                });
+            }
+            var dateExists = await _uof.EventRepository.IsDateExistsExceptWithId(editEventVM.Date, ID);
+            if (dateExists)
+            {
+                ModelState.AddModelError("date", "Event with this date already exists.");
+            }
+            ValidateOverlappingTime(editEventVM.Activities);
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return Json(new
+                {
+                    errors = ModelState.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage)?.ToArray() ?? []
+                 )
+                });
+            }
+            var dbEvent = await _uof.EventRepository.GetById(editEventVM.Id);
+            dbEvent.Update(editEventVM);
+            _uof.EventRepository.Update(dbEvent);
+            await _uof.Save();
+            return Json(new
+            {
+                status = StatusCodes.Status200OK,
+                message = "Event updated.",
+                @event = dbEvent
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message);
+            _logger.LogError(ex.StackTrace);
+            Response.StatusCode = StatusCodes.Status500InternalServerError;
+            return Json(new
+            {
+                message = "Unknown error occured.",
+                status = StatusCodes.Status500InternalServerError,
+            });
+        }
+    }
     private void ValidateOverlappingTime(List<NewActivityViewModel> activities)
     {
         activities = [.. activities.Select((a, index) =>
@@ -111,4 +180,38 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
             }
         }
     }
+    private void ValidateOverlappingTime(List<EditActivityViewModel> activities)
+    {
+        activities = [.. activities.Select((a, index) =>
+        {
+            a.Index = index;
+            return a;
+        }).OrderBy(a => a.StartTime)];
+
+        for (int i = 0; i < activities.Count; i++)
+        {
+            var current = activities[i];
+
+            if (current.StartTime.Equals(current.EndTime))
+            {
+                ModelState.AddModelError($"activities[{current.Index}].startTime", "Start and end time cannot be equal.");
+                ModelState.AddModelError($"activities[{current.Index}].endTime", "Start and end time cannot be equal.");
+            }
+            if (current.StartTime > current.EndTime)
+            {
+                ModelState.AddModelError($"activities[{current.Index}].startTime", "Start time cannot be greater than end time");
+            }
+            if (activities.Count == i + 1) break;
+            var next = activities[i + 1];
+            if (current.EndTime > next.StartTime)
+            {
+                ModelState.AddModelError($"activities[{current.Index}].startTime", "Time overlaps with another activity.");
+                ModelState.AddModelError($"activities[{current.Index}].endTime", "Time overlaps with another activity.");
+                ModelState.AddModelError($"activities[{next.Index}].startTime", "Time overlaps with another activity.");
+                ModelState.AddModelError($"activities[{next.Index}].endTime", "Time overlaps with another activity.");
+            }
+        }
+    }
+
+
 }

@@ -20,9 +20,10 @@ class UserRepository : IUserRepository
     {
         return new List<User>();
     }
-    public User GetById(Guid id)
+    public async Task<User> GetById(Guid id)
     {
-        return new User();
+        var user = await _dbContext.User.SingleOrDefaultAsync((u) => u.Id == id);
+        return user;
     }
     public void Update(User driver)
     {

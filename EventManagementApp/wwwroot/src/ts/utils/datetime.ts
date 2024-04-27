@@ -24,16 +24,30 @@ export const get24HRTime = (date: Date) => {
     return "";
   }
 };
-export const timeToObject = (timeStr: string) => {
-  const [hours, minutes, seconds] = timeStr.split(":").map(Number);
+export const timeToObject = (time: string | Date) => {
+  if (typeof time === "string") {
+    const [hours, minutes, seconds] = time.split(":").map(Number);
+    return {
+      hours,
+      minutes,
+      seconds,
+    };
+  }
+  if (time instanceof Date) {
+    return {
+      hours: time.getHours(),
+      minutes: time.getMinutes(),
+      seconds: time.getSeconds(),
+    };
+  }
   return {
-    hours,
-    minutes,
-    seconds,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   };
 };
 export const isValidDatetime = (date: Date) => {
-  if (date instanceof Date && !isNaN(date.valueOf())) {
+  if (date instanceof Date && !isNaN(date.getTime())) {
     return true;
   }
   return false;

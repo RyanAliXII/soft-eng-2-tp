@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-public class NewActivityViewModel
+
+
+public class ActivityViewModel
 {
     [JsonPropertyName("name")]
     [StringLength(maximumLength: 100, ErrorMessage = "Name must not exceed 100 characters.")]
@@ -19,5 +21,9 @@ public class NewActivityViewModel
     [DataType(DataType.Time)]
     public TimeOnly EndTime { get; set; }
     public int Index = 0;
-
+}
+public class NewActivityViewModel : ActivityViewModel;
+public class EditActivityViewModel : ActivityViewModel
+{
+    public Guid Id { get; set; } = Guid.Empty;
 }

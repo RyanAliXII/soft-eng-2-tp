@@ -1,15 +1,24 @@
 <section class="px-4 py-5 bg-white dark:bg-gray-800" id="eventCalendar">
   <span class="text-2xl font-semibold dark:text-white" v-cloak>Events</span>
   <hr class="divider-b mb-3 mt-1" />
-  <div class="py-5">
+  <div class="py-5 flex gap-2">
     <a
-      href="#"
+      href="/Admin/Event/Create "
       class="btn-primary"
-      :class="{'pointer-events-none opacity-75': isEditDisable}"
+     
+    >
+      <i class="fas fa-plus"></i>
+      Create
+    </a>
+    <a
+      :href="'/Admin/Event/Edit/' + eventId"
+      class="btn-primary-outline"
+      :class="{'pointer-events-none opacity-50': isEditDisable}"
     >
       <i class="fas fa-edit"></i>
-      Edit Event
+      Edit
     </a>
+    
   </div>
   <full-calendar :options="calendarOptions" ref="fullCalendar"></full-calendar>
   @section Scripts{

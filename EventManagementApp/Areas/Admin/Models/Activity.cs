@@ -17,5 +17,11 @@ public class Activity
         StartTime = vm.StartTime;
         EndTime = vm.EndTime;
     }
+    public Activity(EditActivityViewModel vm)
+    {
+        Name = vm.Name;
+        StartTime = vm.StartTime;
+        EndTime = vm.EndTime;
+    }
 
 }

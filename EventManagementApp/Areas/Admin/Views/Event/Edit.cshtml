@@ -1,0 +1,134 @@
+@model EventManagementApp.Areas.Admin.Models.Event
+@using System.Text.Json;
+<section class="px-4 py-5 bg-white dark:bg-gray-800" id="editEventPage" v-cloak>
+  <span class="text-2xl font-semibold dark:text-white">Edit Event</span>
+  <hr class="divider-b mb-3 mt-1" />
+  <form v-on:submit.prevent="submit">
+    @Html.AntiForgeryToken()
+    <div class="mb-2">
+      <label class="form-label">Name</label>
+      <input
+        type="text"
+        name="name"
+        v-model="form.name"
+        :class="errors?.name?.[0] ? 'form-input-error' : 'form-input'"
+      />
+      <span
+        class="form-error"
+        v-show="errors?.name"
+        >{{ errors?.name?.[0] }}</span
+      >
+    </div>
+    <div class="mb-4">
+      <label class="form-label">Date</label>
+      <input
+        type="date"
+        name="date"
+        :value="toISO8601DateString(form.date)"
+        v-on:input="handleDateInput"
+        :class="errors?.date?.[0] ? 'form-input-error' : 'form-input'"
+      />
+      <span
+        class="form-error"
+        v-show="errors?.date"
+        >{{ errors?.date?.[0] }}</span
+      >
+    </div>
+    <div>
+      <button
+        type="button"
+        class="btn-primary-outline mb-3"
+        v-on:click="addActivity"
+      >
+        <i class="fas fa-plus"></i>
+        Add activity
+      </button>
+    </div>
+    <div class="table-container overflow-y-hidden mb-3">
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <th class="th">Name</th>
+            <th class="th">Start time</th>
+            <th class="th">End time</th>
+            <th class="th"></th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr class="tbody-row" v-for="(activity, index) of form.activities">
+            <td class="td">
+              <label>Name</label>
+              <input
+                v-model="form.activities[index].name"
+                type="text"
+                :class="errors?.activities?.[index]?.name?.[0] ? 'form-input-error' : 'form-input' "
+              />
+              <span
+                class="form-error"
+                v-show="errors?.activities?.[index]?.name?.[0]"
+                >{{errors?.activities?.[index]?.name?.[0] }}</span
+              >
+            </td>
+            <td class="td">
+              <label>Start time</label>
+              <date-picker
+                v-model="form.activities[index].startTime"
+                time-picker
+                :teleport="true"
+                :is-24="false"
+                minutes-increment="15"
+              ></date-picker>
+              <span
+                class="form-error"
+                v-show="errors?.activities?.[index]?.startTime?.[0]"
+                >{{errors?.activities?.[index]?.startTime?.[0] }}</span
+              >
+            </td>
+            <td class="td">
+              <label>End time</label>
+              <date-picker
+                v-model="form.activities[index].endTime"
+                time-picker
+                :teleport="true"
+                :is-24="false"
+                minutes-increment="15"
+              ></date-picker>
+              <span
+                class="form-error"
+                v-show="errors?.activities?.[index]?.endTime?.[0]"
+                >{{errors?.activities?.[index]?.endTime?.[0] }}</span
+              >
+            </td>
+            <td class="td">
+              <button
+                type="button"
+                class="btn-danger mt-3"
+                v-on:click="removeActivity(index)"
+              >
+                <div flex gap-2 items-center>
+                  <i class="fas fa-times"></i>
+                  Remove
+                </div>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <button type="submit" class="btn-primary">
+        <div flex gap-2 items-center>
+          <i class="fas fa-save"></i>
+          Save
+        </div>
+      </button>
+    </div>
+  </form>
+</section>
+
+@section Scripts{
+<script>
+  window.viewModel = JSON.parse(`@Html.Raw(Json.Serialize(Model))`)
+</script>
+<script src="~/dist/js/event/edit-event.js"></script>
+}
