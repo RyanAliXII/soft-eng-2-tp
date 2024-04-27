@@ -11,11 +11,14 @@
       <i class="fas fa-edit"></i>
       Edit
     </a>
-    
-  <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="btn-danger" type="button" :disabled="isEditDisable" >
-    <i class="fas fa-trash"></i>
-      Delete
-  </button>
+    <form>
+       @Html.AntiForgeryToken()
+      <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="btn-danger" type="button" :disabled="isEditDisable" >
+        <i class="fas fa-trash"></i>
+          Delete
+      </button>
+    </form>
+
   </div>
   <full-calendar :options="calendarOptions" ref="fullCalendar"></full-calendar>
 

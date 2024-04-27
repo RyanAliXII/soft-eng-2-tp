@@ -1,3 +1,4 @@
+using CommunityToolkit.HighPerformance.Helpers;
 using EventManagementApp.Areas.Admin.Models;
 using EventManagementApp.Areas.Admin.ViewModels;
 using EventManagementApp.Repositories;
@@ -147,6 +148,49 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
                 status = StatusCodes.Status500InternalServerError,
             });
         }
+    }
+    [HttpDelete]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(Guid ID)
+    {
+        try
+        {
+            if (ID == Guid.Empty)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return Json(new
+                {
+                    status = StatusCodes.Status400BadRequest,
+                    message = "Invalid Id param."
+                });
+            }
+            var e = await _uof.EventRepository.GetById(ID);
+            if (e.Id == Guid.Empty)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return Json(new
+                {
+                    status = StatusCodes.Status400BadRequest,
+                    message = "Event does not exists."
+                });
+            }
+            _uof.EventRepository.Delete(e);
+            await _uof.Save();
+            return Json(new { status = StatusCodes.Status200OK, message = "Event deleted." });
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            _logger.LogError(e.StackTrace);
+            Response.StatusCode = StatusCodes.Status500InternalServerError;
+            return Json(new
+            {
+                status = StatusCodes.Status500InternalServerError,
+                message = "Unknown error occured."
+            });
+        }
+
+
     }
     private void ValidateOverlappingTime(List<NewActivityViewModel> activities)
     {

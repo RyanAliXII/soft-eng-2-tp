@@ -1,4 +1,4 @@
-import { computed, createApp, ref } from "vue";
+import { computed, createApp, onMounted, ref } from "vue";
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -14,6 +14,9 @@ import {
 } from "./utils/datetime";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { Event } from "./types/event";
+import { StatusCodes } from "http-status-codes";
+import { getCSRF } from "./utils/csrf";
+import Toast from "./toast/toast";
 
 createApp({
   components: {
@@ -24,7 +27,8 @@ createApp({
     const eventUrl = new URL(window.location.origin + "/Admin/Event");
     const eventId = ref("");
     const isEditDisable = computed(() => eventId.value.length === 0);
-
+    const csrf = ref("");
+    const toast = new Toast({ duration: 3000 });
     const fetchEvents: EventSourceFunc = async (info, success) => {
       const start = toISO8601DateString(info.start);
       const end = toISO8601DateString(info.end);
@@ -92,8 +96,23 @@ createApp({
       });
       success(dEvents);
     };
-    const deleteEvent = () => {
+    onMounted(() => {
+      csrf.value = getCSRF();
+    });
+    const deleteEvent = async () => {
       if (eventId.value.length === 0) return;
+      const response = await fetch(`/Admin/Event/Delete/${eventId.value}`, {
+        method: "DELETE",
+        headers: new Headers({
+          RequestVerificationToken: csrf.value,
+        }),
+      });
+
+      if (response.status === StatusCodes.OK) {
+        toast.success(`Event has been deleted.`);
+        fullCalendar.value.getApi().changeView("dayGridMonth");
+        fullCalendar.value.getApi().refetchEvents();
+      }
     };
     const calendarOptions: CalendarOptions = {
       plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],

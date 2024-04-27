@@ -32,7 +32,7 @@ public class EventRepository : IEventRepository
 
     public void Delete(Event e)
     {
-
+        _dbContext.Event.Remove(e);
     }
     public async Task<bool> IsDateExists(DateTime date)
     {
