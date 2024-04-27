@@ -92,6 +92,9 @@ createApp({
       });
       success(dEvents);
     };
+    const deleteEvent = () => {
+      if (eventId.value.length === 0) return;
+    };
     const calendarOptions: CalendarOptions = {
       plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
       initialView: "dayGridMonth",
@@ -126,6 +129,7 @@ createApp({
       fullCalendar,
       eventId,
       isEditDisable,
+      deleteEvent,
     };
   },
 }).mount("#eventCalendar");
