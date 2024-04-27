@@ -1,0 +1,18 @@
+<section class="px-4 py-5 bg-white dark:bg-gray-800" id="eventCalendar">
+  <span class="text-2xl font-semibold dark:text-white" v-cloak>Events</span>
+  <hr class="divider-b mb-3 mt-1" />
+  <div class="py-5">
+    <a
+      href="#"
+      class="btn-primary"
+      :class="{'pointer-events-none opacity-75': isEditDisable}"
+    >
+      <i class="fas fa-edit"></i>
+      Edit Event
+    </a>
+  </div>
+  <full-calendar :options="calendarOptions" ref="fullCalendar"></full-calendar>
+  @section Scripts{
+  <script src="~/dist/js/event/event-calendar.js"></script>
+  }
+</section>

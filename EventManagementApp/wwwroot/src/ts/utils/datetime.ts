@@ -8,6 +8,14 @@ export const toISO8601DateString = (date: Date) => {
     return "";
   }
 };
+export const toISO8601DatetimeString = (date: Date) => {
+  if (!isValidDatetime(date)) return "";
+  try {
+    return format(date, "yyyy-MM-dd HH:mm:ss");
+  } catch (error) {
+    return "";
+  }
+};
 export const get24HRTime = (date: Date) => {
   if (!isValidDatetime(date)) return "";
   try {
@@ -15,6 +23,14 @@ export const get24HRTime = (date: Date) => {
   } catch (error) {
     return "";
   }
+};
+export const timeToObject = (timeStr: string) => {
+  const [hours, minutes, seconds] = timeStr.split(":").map(Number);
+  return {
+    hours,
+    minutes,
+    seconds,
+  };
 };
 export const isValidDatetime = (date: Date) => {
   if (date instanceof Date && !isNaN(date.valueOf())) {

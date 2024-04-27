@@ -10,6 +10,28 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
 {
     private ILogger<EventController> _logger = logger;
     private IUnitOfWork _uof = uof;
+
+    public async Task<IActionResult> Index([FromQuery] DateTime? start, [FromQuery] DateTime? end)
+    {
+        var contentType = Request.ContentType;
+        if (contentType == "application/json")
+        {
+            if (start == null || end == null)
+            {
+                return Json(new
+                {
+                    events = new List<Event>()
+                });
+            }
+
+            var events = await _uof.EventRepository.GetEventsByDateRange(start, end);
+            return Json(new
+            {
+                events
+            });
+        }
+        return View();
+    }
     public IActionResult Create()
     {
         return View();

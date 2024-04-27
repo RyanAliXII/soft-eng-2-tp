@@ -1,3 +1,5 @@
 {
-  "event/create-event": "./wwwroot/src/ts/create-event.ts"
+  "event/create-event": "./wwwroot/src/ts/create-event.ts",
+  "event/event-calendar": "./wwwroot/src/ts/event-calendar.ts",
+  "toast/toast": "./wwwroot/src/ts/toast/toast.ts"
 }

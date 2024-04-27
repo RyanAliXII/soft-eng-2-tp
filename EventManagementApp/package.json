@@ -22,6 +22,11 @@
     "dev": "concurrently --kill-others \"npm run tw\" \"npm run bundle\""
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.11",
+    "@fullcalendar/daygrid": "^6.1.11",
+    "@fullcalendar/interaction": "^6.1.11",
+    "@fullcalendar/timegrid": "^6.1.11",
+    "@fullcalendar/vue3": "^6.1.11",
     "@vuepic/vue-datepicker": "^8.5.0",
     "date-fns": "^3.6.0",
     "http-status-codes": "^2.3.0",

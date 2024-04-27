@@ -36,9 +36,16 @@ public class EventRepository : IEventRepository
         var e = await _dbContext.Event.SingleOrDefaultAsync(e => e.Date.Equals(date));
         return e != null;
     }
+    public async Task<List<Event>> GetEventsByDateRange(DateTime? start, DateTime? end)
+    {
+        var events = await _dbContext.Event.Include(e => e.Activities).
+        Where(e => e.Date >= start && e.Date <= end).ToListAsync();
+        return events;
+    }
 }
 
 public interface IEventRepository : IRepository<Event>
 {
     public Task<bool> IsDateExists(DateTime date);
+    public Task<List<Event>> GetEventsByDateRange(DateTime? start, DateTime? end);
 }

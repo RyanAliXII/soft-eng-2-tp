@@ -1,6 +1,6 @@
 export type Activity = {
   id: string;
   name: string;
-  startTime: Date;
-  endTime: Date;
+  startTime: Date | string;
+  endTime: Date | string;
 };

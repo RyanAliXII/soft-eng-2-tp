@@ -6,7 +6,7 @@ import { get24HRTime, toISO8601DateString } from "./utils/datetime";
 import { toStructuredErrors } from "./utils/form";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-
+import Toast from "./toast/toast";
 createApp({
   components: {
     "date-picker": VueDatePicker,
@@ -14,6 +14,7 @@ createApp({
   setup() {
     const csrf = ref("");
     const currentDate = new Date();
+    const toast = new Toast({ duration: 3000 });
     onMounted(() => {
       csrf.value = getCSRF();
     });
@@ -49,7 +50,6 @@ createApp({
       try {
         const date = new Date(value);
         form.value.date = date;
-        console.log(date);
       } catch (e) {
         console.error(e);
       }
@@ -130,7 +130,9 @@ createApp({
         return;
       }
       if (response.status === StatusCodes.OK) {
-        alert("New event has been added.");
+        toast.success(
+          `Event has been created. <a  href="/Admin/Event" class="underline text-blue-500">View events</a>`
+        );
       }
     };
     return {
