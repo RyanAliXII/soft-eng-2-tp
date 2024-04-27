@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -23,7 +24,7 @@ namespace EventManagementApp.Migrations
             {
                 table.PrimaryKey("PK_Activity", r => r.Id);
                 table.ForeignKey("FK_Activity_Event_EventId",
-                column: row => row.EventId, principalTable: "Event", principalColumn: "Id");
+                column: row => row.EventId, principalTable: "Event", principalColumn: "Id", onDelete: ReferentialAction.Cascade);
             });
         }
 
