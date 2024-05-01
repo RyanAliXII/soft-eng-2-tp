@@ -1,3 +1,4 @@
+using System.Net;
 using CommunityToolkit.HighPerformance.Helpers;
 using EventManagementApp.Areas.Admin.Models;
 using EventManagementApp.Areas.Admin.ViewModels;
@@ -20,14 +21,14 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
         {
             if (start == null || end == null)
             {
-                return Json(new
+                return Ok(new
                 {
                     events = new List<Event>()
                 });
             }
 
             var events = await _uof.EventRepository.GetEventsByDateRange(start, end);
-            return Json(new
+            return Ok(new
             {
                 events
             });
@@ -52,18 +53,17 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
             ValidateOverlappingTime(newEvent.Activities);
             if (!ModelState.IsValid)
             {
-                Response.StatusCode = StatusCodes.Status400BadRequest;
-                return Json(new
+                return BadRequest(new
                 {
                     errors = ModelState.ToDictionary(
                     kvp => kvp.Key,
                     kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage)?.ToArray() ?? []
-                 )
+                 ),
                 });
             }
             var e = await _uof.EventRepository.Add(new Event(newEvent));
             await _uof.Save();
-            return Json(new
+            return Ok(new
             {
                 e
             });
@@ -74,9 +74,9 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
             _logger.LogError(ex.Message);
             _logger.LogError(ex.StackTrace);
             Response.StatusCode = StatusCodes.Status500InternalServerError;
-            return Json(new
+            return StatusCode(StatusCodes.Status500InternalServerError, new
             {
-                errors = new { },
+                message = "Unknown error occurred."
             });
         }
 
@@ -102,8 +102,8 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
         {
             if (ID == Guid.Empty || ID != editEventVM.Id)
             {
-                Response.StatusCode = StatusCodes.Status400BadRequest;
-                return Json(new
+
+                return BadRequest(new
                 {
                     message = "Invalid event ID param",
                     status = StatusCodes.Status400BadRequest
@@ -117,8 +117,8 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
             ValidateOverlappingTime(editEventVM.Activities);
             if (!ModelState.IsValid)
             {
-                Response.StatusCode = StatusCodes.Status400BadRequest;
-                return Json(new
+
+                return BadRequest(new
                 {
                     errors = ModelState.ToDictionary(
                     kvp => kvp.Key,
@@ -130,7 +130,7 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
             dbEvent.Update(editEventVM);
             _uof.EventRepository.Update(dbEvent);
             await _uof.Save();
-            return Json(new
+            return Ok(new
             {
                 status = StatusCodes.Status200OK,
                 message = "Event updated.",
@@ -141,8 +141,8 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
         {
             _logger.LogError(ex.Message);
             _logger.LogError(ex.StackTrace);
-            Response.StatusCode = StatusCodes.Status500InternalServerError;
-            return Json(new
+
+            return StatusCode(StatusCodes.Status500InternalServerError, new
             {
                 message = "Unknown error occured.",
                 status = StatusCodes.Status500InternalServerError,
@@ -157,8 +157,8 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
         {
             if (ID == Guid.Empty)
             {
-                Response.StatusCode = StatusCodes.Status400BadRequest;
-                return Json(new
+
+                return BadRequest(new
                 {
                     status = StatusCodes.Status400BadRequest,
                     message = "Invalid Id param."
@@ -167,8 +167,8 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
             var e = await _uof.EventRepository.GetById(ID);
             if (e.Id == Guid.Empty)
             {
-                Response.StatusCode = StatusCodes.Status400BadRequest;
-                return Json(new
+
+                return BadRequest(new
                 {
                     status = StatusCodes.Status400BadRequest,
                     message = "Event does not exists."
@@ -176,14 +176,14 @@ public class EventController(IUnitOfWork uof, ILogger<EventController> logger) :
             }
             _uof.EventRepository.Delete(e);
             await _uof.Save();
-            return Json(new { status = StatusCodes.Status200OK, message = "Event deleted." });
+            return Ok(new { status = StatusCodes.Status200OK, message = "Event deleted." });
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
             _logger.LogError(e.StackTrace);
-            Response.StatusCode = StatusCodes.Status500InternalServerError;
-            return Json(new
+
+            return StatusCode(StatusCodes.Status500InternalServerError, new
             {
                 status = StatusCodes.Status500InternalServerError,
                 message = "Unknown error occured."
