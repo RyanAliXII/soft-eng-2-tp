@@ -1,0 +1,89 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\RYAN\\Documents\\event-management\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A5A691A9-CE24-4AD6-8115-03E42DDB1A07}|EventManagementApp\\EventManagementApp.csproj|c:\\users\\ryan\\documents\\event-management\\eventmanagementapp\\test\\unit\\controllers\\eventcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5A691A9-CE24-4AD6-8115-03E42DDB1A07}|EventManagementApp\\EventManagementApp.csproj|solutionrelative:eventmanagementapp\\test\\unit\\controllers\\eventcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5A691A9-CE24-4AD6-8115-03E42DDB1A07}|EventManagementApp\\EventManagementApp.csproj|c:\\users\\ryan\\documents\\event-management\\eventmanagementapp\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5A691A9-CE24-4AD6-8115-03E42DDB1A07}|EventManagementApp\\EventManagementApp.csproj|solutionrelative:eventmanagementapp\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5A691A9-CE24-4AD6-8115-03E42DDB1A07}|EventManagementApp\\EventManagementApp.csproj|c:\\users\\ryan\\documents\\event-management\\eventmanagementapp\\areas\\admin\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5A691A9-CE24-4AD6-8115-03E42DDB1A07}|EventManagementApp\\EventManagementApp.csproj|solutionrelative:eventmanagementapp\\areas\\admin\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5A691A9-CE24-4AD6-8115-03E42DDB1A07}|EventManagementApp\\EventManagementApp.csproj|c:\\users\\ryan\\documents\\event-management\\eventmanagementapp\\eventmanagementapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A5A691A9-CE24-4AD6-8115-03E42DDB1A07}|EventManagementApp\\EventManagementApp.csproj|solutionrelative:eventmanagementapp\\eventmanagementapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EventManagementApp",
+              "DocumentMoniker": "C:\\Users\\RYAN\\Documents\\event-management\\EventManagementApp\\EventManagementApp.csproj",
+              "RelativeDocumentMoniker": "EventManagementApp\\EventManagementApp.csproj",
+              "ToolTip": "C:\\Users\\RYAN\\Documents\\event-management\\EventManagementApp\\EventManagementApp.csproj",
+              "RelativeToolTip": "EventManagementApp\\EventManagementApp.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-04-28T04:02:14.914Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EventController.cs",
+              "DocumentMoniker": "C:\\Users\\RYAN\\Documents\\event-management\\EventManagementApp\\Areas\\Admin\\Controllers\\EventController.cs",
+              "RelativeDocumentMoniker": "EventManagementApp\\Areas\\Admin\\Controllers\\EventController.cs",
+              "ToolTip": "C:\\Users\\RYAN\\Documents\\event-management\\EventManagementApp\\Areas\\Admin\\Controllers\\EventController.cs",
+              "RelativeToolTip": "EventManagementApp\\Areas\\Admin\\Controllers\\EventController.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABkAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-28T04:27:27.976Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\RYAN\\Documents\\event-management\\EventManagementApp\\Repositories\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "EventManagementApp\\Repositories\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\RYAN\\Documents\\event-management\\EventManagementApp\\Repositories\\UnitOfWork.cs",
+              "RelativeToolTip": "EventManagementApp\\Repositories\\UnitOfWork.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-28T04:15:36.922Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EventControllerTest.cs",
+              "DocumentMoniker": "C:\\Users\\RYAN\\Documents\\event-management\\EventManagementApp\\Test\\Unit\\Controllers\\EventControllerTest.cs",
+              "RelativeDocumentMoniker": "EventManagementApp\\Test\\Unit\\Controllers\\EventControllerTest.cs",
+              "ToolTip": "C:\\Users\\RYAN\\Documents\\event-management\\EventManagementApp\\Test\\Unit\\Controllers\\EventControllerTest.cs",
+              "RelativeToolTip": "EventManagementApp\\Test\\Unit\\Controllers\\EventControllerTest.cs",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAswHYAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-28T04:03:11.165Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
