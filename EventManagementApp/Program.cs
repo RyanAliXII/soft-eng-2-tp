@@ -9,7 +9,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 var builder = WebApplication.CreateBuilder(args);
 //Initialize minio;
-builder.Services.AddMinio(client => MinioServiceBootstrap.BuildDefaultMinioClient(client, builder.Configuration));
+// builder.Services.AddMinio(client => MinioServiceBootstrap.BuildDefaultMinioClient(client, builder.Configuration));
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
 {
@@ -32,11 +32,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
-MinioServiceBootstrap.CreateDefaultBucketAndPolicy(app.Services.GetRequiredService<IMinioClient>(), app.Configuration);
+// MinioServiceBootstrap.CreateDefaultBucketAndPolicy(app.Services.GetRequiredService<IMinioClient>(), app.Configuration);
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    RootUserSeed.Initialize(services, app.Configuration);
+    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "test")
+    {
+        RootUserSeed.Initialize(services, app.Configuration);
+    }
+
 }
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -63,3 +67,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+public partial class Program { }

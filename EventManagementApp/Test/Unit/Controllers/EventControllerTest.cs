@@ -9,9 +9,6 @@ using Xunit.Abstractions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using EventManagementApp.Areas.Admin.ViewModels;
-using EventManagementApp.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace EventManagementApp.Tests.Unit;
 
@@ -267,7 +264,7 @@ public class EventControllerTest
         Assert.IsType<NotFoundResult>(result);
     }
     [Fact]
-    public async Task Edit_ReturnNotFoundIfRecordNotExistsView()
+    public async Task Edit_ReturnNotFoundIfRecordNotExists()
     {
         var uid = new Guid("24af7cbb-7cde-49ec-9ec1-3e9216b25d5a");
 

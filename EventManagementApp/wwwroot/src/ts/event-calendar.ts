@@ -73,7 +73,7 @@ createApp({
               new Date(
                 eventDate.getFullYear(),
                 eventDate.getMonth(),
-                eventDate.getDay(),
+                eventDate.getDate(),
                 end.hours,
                 end.minutes,
                 end.seconds

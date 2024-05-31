@@ -18,7 +18,8 @@ class UserRepository : IUserRepository
     }
     public List<User> GetAll()
     {
-        return new List<User>();
+        var users = _dbContext.User.ToList();
+        return users;
     }
     public async Task<User> GetById(Guid id)
     {
