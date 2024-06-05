@@ -41,6 +41,10 @@ module.exports = {
           from: path.resolve(__dirname, "wwwroot/src/lib"),
           to: path.resolve(__dirname, "wwwroot/dist/lib"),
         },
+        {
+          from: path.resolve(__dirname, "wwwroot/src/images"),
+          to: path.resolve(__dirname, "wwwroot/dist/images"),
+        },
       ],
     }),
   ],

@@ -1,0 +1,40 @@
+
+        <div class="container-fluid" style="margin: 0; padding: 0;">
+            <!--Navbar section-->
+            <nav class="navbar navbar-expand-lg" style="background-color: #214b8f;">
+                <a class="navbar-brand href="homepage.html" style="color: white; font-size: 24px;"><b>E-GANAP</b></a>
+                <ul class="navbar-nav mr-auto px-2">
+                    <li class="nav-item"><a class="nav-link" href="/" style="color: white; text-decoration: none;">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events" style="color: white; text-decoration: none;">Events</a></li>
+                    @* <li class="nav-item"><a class="nav-link" href="#" style="color: white; text-decoration: none;">About This Website</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" style="color: white; text-decoration: none;">Meet The Contributors</a></li> *@
+                    <li class="nav-item"><a class="nav-link" href="https://www.youtube.com/watch?v=xvFZjo5PgG0" style="color: white; text-decoration: none;"><b>DO NOT CLICK</b></a></li>
+                </ul>
+
+                <div class="col d-flex justify-content-end">
+                    @* <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn my-2 my-sm-0" type="submit">Search</button>
+                    </form> *@
+                </div>
+            </nav>
+            <!--End of Navbar Section-->
+
+            <!--Homepage content starts here-->
+             <div class="col my-5" id="eventCalendar">
+            
+                <full-calendar :options="calendarOptions" ref="fullCalendar"></full-calendar>
+             
+            </div> 
+            <!--End of Homepage content Section-->
+
+            <!--Start of Footer Content-->
+            <footer class="container-fluid m-0 py-3" style=" text-align: center; background: #214b8f; color: white;">
+                <p><b>Developed by DABARKADS Group</b></p>
+                <p>&copy 2024 BS601 All rights reserved.</p>
+            </footer>
+            <!--End of Footer Content-->
+        </div>
+          @section Scripts{
+            <script src="~/dist/js/public/event-calendar.js"></script>
+        }

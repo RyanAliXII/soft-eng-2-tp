@@ -136,10 +136,16 @@ createApp({
 
       if (response.status === StatusCodes.BAD_REQUEST) {
         const data = await response.json();
+
         errors.value = toStructuredErrors(data?.errors) ?? {};
         return;
       }
       if (response.status === StatusCodes.OK) {
+        form.value = {
+          activities: [],
+          date: new Date(),
+          name: "",
+        };
         toast.success(
           `Event has been created. <a  href="/Admin/Event" class="underline text-blue-500">View events</a>`
         );

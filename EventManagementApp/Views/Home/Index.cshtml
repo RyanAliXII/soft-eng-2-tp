@@ -1,7 +1,83 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+        <div class="container-fluid" style="margin: 0; padding: 0;">
+            <!--Navbar section-->
+            <nav class="navbar navbar-expand-lg" style="background-color: #214b8f;">
+                <a class="navbar-brand href="homepage.html" style="color: white; font-size: 24px;"><b>E-GANAP</b></a>
+                <ul class="navbar-nav mr-auto px-2">
+                    <li class="nav-item"><a class="nav-link" href="/" style="color: white; text-decoration: none;">Home</a></li
+                    <li class="nav-item"><a class="nav-link" href="/events" style="color: white; text-decoration: none;">Events</a></li>
+                    @* <li class="nav-item"><a class="nav-link" href="#" style="color: white; text-decoration: none;">About This Website</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" style="color: white; text-decoration: none;">Meet The Contributors</a></li> *@
+                    <li class="nav-item"><a class="nav-link" href="https://www.youtube.com/watch?v=xvFZjo5PgG0" style="color: white; text-decoration: none;"><b>DO NOT CLICK</b></a></li>
+                </ul>
 
-<div class="text-center">
-    IF YOU SEE THIS, IT MEANS THE APP IS WORKING IS RUNNING.
-</div>
+                <div class="col d-flex justify-content-end">
+                    @* <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn my-2 my-sm-0" type="submit">Search</button>
+                    </form> *@
+                </div>
+            </nav>
+            <!--End of Navbar Section-->
+
+            <!--Homepage content starts here-->
+            <div class="col my-5">
+                <div class="row py-5 justify-content-center">
+                    <div class="bg-image" style="background-image: url('https://assets.entrepreneur.com/content/3x2/2000/1660036456-Untitleddesign-2022-08-09T131346610.png'); width: 100%; color: rgb(255, 255, 255); ">
+                        <h1 style="font-family:'Impact'; font-size: 64px; text-align: center;" class="my-5 px-5">
+                            WANNA KNOW WHAT'S THE NEXT EVENT? E-GANAP HAS GOT YOU COVERED!<br/>
+                        </h1>
+
+                        <h5 style="text-align: center;" class="mx-5">
+                            Track the next events, see your team's standings, and look for previous events — E-GANAP can make short work of that!
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="row py-5">
+                    <div class="container-fluid row my-auto">
+                        <div class="col text-center m-auto">
+                            <img src="~/dist/images/update.png" width="50%">
+                        </div>
+                        <div class="col p-5">
+                            <h1 style="font-size: 64px; font-family: 'Impact';">FETCH UPDATES FOR EVERY EVENT.</h1>
+                            <h5 style="text-align: justify">
+                                E-GANAP tracks all events at once. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id consequat sem. Mauris pellentesque massa vel sapien mollis scelerisque. Cras eget convallis libero, non aliquet nunc. Sed ullamcorper velit ut cursus sollicitudin.
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid row my-auto">
+                        <div class="col p-5">
+                            <h1 style="font-size: 64px; font-family: 'Impact';">TRACK YOUR STANDINGS THROUGHOUT THE EVENT.</h1>
+                            <h5 style="text-align: justify">
+                                Earning some W's? E-GANAP Lets you know how your efforts push the team to the  top standings. Sed ullamcorper velit ut cursus sollicitudin. Nunc enim enim, lacinia vitae est a, condimentum semper odio. Nam ullamcorper fringilla nibh id malesuada. Morbi eget nulla et massa dictum egestas a sit amet neque. Cras scelerisque eleifend maximus.
+                            </h5>
+                        </div>
+                        <div class="col text-center m-auto">
+                            <img src="~/dist/images/podium.webp" width="700px" class="img-fluid">
+                        </div>
+                    </div>
+
+                    <div class="container-fluid row my-auto">
+                        <div class="col m-auto">
+                            <img src="~/dist/images/archive.png" width="600px" class="img-fluid"/>
+                        </div>
+                        <div class="col py-5">
+                            <h1 style="font-size: 64px; font-family: 'Impact';">CHECK ARCHIVED EVENTS.</h1>
+                            <h5 style="text-align: justify">
+                                Are you looking for a throwback of previous events? E-GANAP can stash and archive previous events. You can also check the progression of every team and their performance for future reference. Vivamus porta lorem a imperdiet sodales. Praesent auctor enim nisl, eget dapibus ipsum consequat ac. Morbi cursus nec lacus sit amet vehicula. Morbi a efficitur nisl. Suspendisse et tellus vitae mi dignissim mollis.
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End of Homepage content Section-->
+
+            <!--Start of Footer Content-->
+            <footer class="container-fluid m-0 py-3" style=" text-align: center; background: #214b8f; color: white;">
+                <p><b>Developed by DABARKADS Group</b></p>
+                <p>&copy 2024 BS601 All rights reserved.</p>
+            </footer>
+            <!--End of Footer Content-->
+        </div>
